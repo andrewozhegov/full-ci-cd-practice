@@ -13,5 +13,7 @@ RUN yum-config-manager \
     https://download.docker.com/linux/centos/docker-ce.repo
 RUN yum -y install docker-ce-cli
 
+RUN yum -y install git
+
 CMD ["java", "-jar", "/usr/lib/jenkins/jenkins.war", "start"]
 EXPOSE 8080/tcp

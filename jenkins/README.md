@@ -2,6 +2,7 @@
 
 `full-ci-cd-practice/jenkins`
 
+Docker container with preinstalled Java, Jenkins and Maven. Also contains docker-cli (because jenkins would build docker images too) whitch supposed to work with docker.sock from host, so just volume it.
 Of course I would like to use a real AWS EC2 for that, but as I live in Crimea all I can it's just imagine like it's EC2.
 
 ### amazonlinux way

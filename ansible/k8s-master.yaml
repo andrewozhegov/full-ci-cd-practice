@@ -125,7 +125,10 @@
         state: restarted
 
   - name: Initialize the Kubernetes cluster using kubeadm
-    command: kubeadm init --apiserver-advertise-address="192.168.50.10" --apiserver-cert-extra-sans="192.168.50.10"  --node-name k8s-master --pod-network-cidr=192.168.0.0/16
+    shell: kubeadm init --apiserver-advertise-address="192.168.50.10" --apiserver-cert-extra-sans="192.168.50.10"  --node-name k8s-master --pod-network-cidr=192.168.0.0/16 >> kubeadn-init.log
+    args:
+      chdir: $HOME
+      creates: kubeadm-init.log
     environment:
       https_proxy: 10.0.40.106:8118
 
@@ -139,8 +142,12 @@
 
 
   - name: Install calico pod network
-    become: false
-    command: kubectl create -f https://docs.projectcalico.org/v3.4/getting-started/kubernetes/installation/hosted/calico.yaml
+    become: yes
+    become_user: vagrant
+    shell: kubectl create -f https://docs.projectcalico.org/manifests/calico.yaml >> cni-setup.log
+    args:
+      chdir: $HOME
+      creates: cni-setup.log
     environment:
       https_proxy: 10.0.40.106:8118
 
